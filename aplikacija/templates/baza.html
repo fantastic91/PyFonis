@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Fonis Evidencije" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/python.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/meni.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/tabela.css" media="screen" />
+<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div id="top">
+  <div id="top-ogr">
+    <div class="top-lijevi-box">
+      <p>admin panel<br />
+        <img src="{{ STATIC_URL }}images/logo.png" /></p>
+    </div>
+    <div class="top-desni-box">
+      <form action="/pretraga/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Traži">
+      </form>
+    </div>
+  </div>
+</div>
+<div id="top-linija">
+  <ul class="solidblockmenu">
+    <li><a href="/" class="{% block nav_home %}current{% endblock %}">Home</a></li>
+    <li><a href="/lista/" class="{% block nav_lista %}{% endblock %}">Lista projekata</a></li>
+    <li><a href="/clan/" class="{% block nav_clan %}{% endblock %}">Spisak članova</a></li>
+    <li><a href="/clan/dodaj/" class="{% block nav_clan_dodaj %}{% endblock %}">Dodaj člana</a></li>
+    <li><a href="/upis/" class="{% block nav_upis %}{% endblock %}">Kreiranje projekta</a></li>
+    <li><a href="/pretraga-forma/" class="{% block nav_pretraga %}{% endblock %}">Pretraga</a></li>
+  </ul>
+</div>
+<div>
+  <div class="kolona" style="padding:10px">
+    <h3>{% block content_title %}{% endblock %}</h3>
+    {% block content %}{% endblock %}</div>
+  {% block content_2 %}{% endblock %} </div>
+<div id="footer-iznad"></div>
+<div id="footer">
+  <div class="footer-lijevi-box"><img id="fonis" src="{{ STATIC_URL }}images/2px.gif"alt="Fonis" /></div>
+  <div class="footer-desni-box">
+    <p class="ft"> Evidencije | FONIS - Udruženje studenata informatike Fakulteta organizacionih nauka</p>
+  </div>
+</div>
+</body>
+</html>

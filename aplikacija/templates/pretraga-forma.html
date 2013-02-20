@@ -1,0 +1,20 @@
+{% extends "baza.html" %}
+
+{% block title %}Pretraga{% endblock %}
+
+{% block nav_home %}{% endblock %}
+{% block nav_pretraga %}current{% endblock %}
+
+
+{% block content_title %}Pretraga{% endblock %}
+
+{% block content %}
+{% if greska %}
+<p style="color: red; font-weight:bold;">Greška! Niste upisali pojam za pretragu ili je upisani pojam predugačak.</p>
+{% endif %}
+<form action="/pretraga/" method="get">
+  <label>Unesite pojam za pretragu:</label>
+  <input type="text" name="q">
+  <input type="submit" value="Traži">
+</form>
+{% endblock %}

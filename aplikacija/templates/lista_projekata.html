@@ -1,0 +1,58 @@
+{% extends "baza.html" %}
+
+{% block title %}Lista projekata{% endblock %}
+
+{% block nav_home %}{% endblock %}
+{% block nav_lista %}current{% endblock %}
+
+
+{% block content_title %}Lista projekata{% endblock %}
+
+{% block content %}
+<p style="text-align:right;">U bazi se nalazi <span style="font-size:20px; padding:3px; background:#333; color:#fff; display:inline-block;"><b>{{ Projekti|length }}</b></span> projekata</p>
+<div style="">
+  <div class="tabelaZaIspis" style="float:left; border-right:0;">
+    <table width="930" >
+      <tr>
+        <td width="57"> ID </td>
+        <td width="249" > Naziv projekta </td>
+        <td width="146"> Koordinator </td>
+        <td width="182"> Datum početka </td>
+        <td width="183"> Datum završetka </td>
+        <td width="85"> Sala </td>
+        <!-- <td width="100"> Broj članova </td>--> 
+      </tr>
+      <!--{{ broj_clanova }} --> 
+      {% for pr in Projekti %}
+      <tr>
+        <td style="text-align:center; font-weight:bold;">{{ pr.id }}</td>
+        <td style="font-weight:bold;!important">{{ pr.naziv }}</td>
+        <td>{{ pr.koordinator.ime }} {{ pr.koordinator.prezime }}</td>
+        <td>{{ pr.datum_pocetak }}</td>
+        <td>{{ pr.datum_kraj }}</td>
+        <td style="text-align:center; border-right: 1px solid #333; ">{{ pr.sala }}</td>
+      </tr>
+      <tr>
+        <td colspan="7" style="border-right:0;">{{ pr.opis }}<!--{% for nesto in ukupno %}{{ nesto.ime }} {{ nesto.prezime }} {% endfor %}--></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="tabelaZaIspis" style="width:100px; float:right; border-left:0; margin-left:-5px; ">
+    <table class="brojclanova">
+      <tr>
+        <td width="49" style="text-align:center; "><b>Broj članova</b>
+      </tr>
+      {% for nesto in broj_clanova %}
+      <tr>
+        <td width="49" style="text-align:center; "><b>{{ nesto }}</b><!--{{ IZABERI }}{% if broj_clanova %}{{ broj_clanova.3 }} {% endif %}--><!--{{ ukupno.all.4.email|length }}{% for broj in broj_clanova %}{{ broj }}{% endfor %}--></td>
+      </tr>
+      <tr>
+        <td colspan="1"  ><p style="color:#fff">.</p></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+</div>
+{% endblock %}

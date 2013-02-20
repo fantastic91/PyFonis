@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Fonis Evidencije" />
+<!--<link rel="icon" href="http://fonis.rs/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="http://fonis.rs/favicon.ico" type="image/x-icon"/>-->
+<link rel="stylesheet" type="text/css" href="http://epicentar.info/primjer/css/python.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="C:/Users/Fantastic/Documents/Python27/pyfonis/aplikacija/media/css/meni.css" media="screen" />
+<title>Fonis korisnički panel</title>
+<!--<script src="js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$.getJSON('http://api.fonis.rs/rookies/get.php?fns_id=587&magic=fantastic&jsoncallback=?', function(data){
+    $('#id').append(data.id);   
+	$('#ime').append(data.first_name); 
+	$('#prezime').append(data.last_name); 
+	$('#email').append(data.email); 
+	$('#slika').append('<img src='+data.image+' />');
+	$('#info').append(data.FTP_Settings.info); 
+		});
+});
+</script>-->
+<style type="text/css">
+#table-3 {
+	border: 1px solid #DFDFDF;
+	background-color: #F9F9F9;
+	width: 100%;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font-family: Arial,"Bitstream Vera Sans",Helvetica,Verdana,sans-serif;
+	color: #333;
+}
+#table-3 td, #table-3 th {
+	border-top-color: white;
+	border-bottom: 1px solid #DFDFDF;
+	color: #555;
+}
+#table-3 th {
+	text-shadow: rgba(255, 255, 255, 0.796875) 0px 1px 0px;
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	font-weight: normal;
+	padding: 7px 7px 8px;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 14px;
+}
+#table-3 td {
+	font-size: 12px;
+	padding: 4px 7px 2px;
+	vertical-align: top;
+}
+</style>
+</head>
+<body>
+<div id="top">
+  <div id="top-ogr">
+    <div class="top-lijevi-box">
+      <p>korisnički panel<br />
+        <img src="http://fonis.rs/images/logo.png" /></p>
+    </div>
+  </div>
+</div>
+<div id="top-linija"><ul class="solidblockmenu">
+<li><a href="">Home</a></li>
+<li><a href="/lista/" class="current">Lista projekata</a></li>
+<li><a href="/hello/">Hello World</a></li>
+</ul>
+</div>
+<div>
+<div class="kolona" style="padding:10px">
+  <h3>Unesi projekat</h3>
+  <form id="form1" name="form1" method="post" action="pr.save()">
+  <p>
+    <label for="naziv">Naziv projekta</label>
+    <input type="text" name="naziv" id="naziv" />
+    <br />
+    <label for="koordinator">Koordinator</label>
+    <input type="text" name="koordinator" id="koordinator" />
+    <br />
+    <label for="sala">Sala</label>
+    <input type="text" name="sala" id="sala" />
+    <br />
+    <label for="opis">Opis</label>
+    <textarea name="opis" id="opis" cols="45" rows="5"></textarea>
+    <br />
+    <br />
+    Sacuvaj
+<input type="submit" name="spasi" id="spasi" value="Submit" />
+    <br />
+  </p>
+</form>
+ 
+  	
+	
+  </div>
+  <div class="kolona" style="padding:10px">
+  <h3>Spisak projekata</h3>
+  
+   {% for pr in projekat %}<div style="border: 1px solid #333;"><table width="900" border="0">
+  <tr>
+  
+    <td><h4>{{ n }} </h4></td>
+    <td><h4>{{ pr.naziv }}</h4></td>
+    <td><h4>{{ pr.koordinator }}</h4></td>
+    <td><h4>{{ pr.datum_pocetak }}</h4></td>
+    <td><h4>{{ pr.datum_kraj }}</h4></td>
+    <td><h4>{{ pr.sala }}</h4></td>
+	
+  </tr>
+</table>
+<table width="816" border="0">
+  <tr>
+    <td style="border-bottom:1px #666;"><h5>{{ pr.opis }}</h5></td>
+  </tr>
+</table></div><br/>
+  	{% endfor %}
+	
+  </div>
+  
+</div>
+<div id="footer-iznad"></div>
+<div id="footer">
+  <div id="footer-ogr">
+    <div class="footer-lijevi-box"> <a href="http://www.fonis.rs"><img id="fonis" src="images/2px.gif" alt="Fonis" /></a> </div>
+    <div class="footer-desni-box">
+      <p class="ft"> Korisnički panel | FONIS - Udruženje studenata informatike Fakulteta organizacionih nauka</p>
+      <br />
+      <p class="ft2">Follow me on <a href="http://www.twitter.com/fantastic91" title="Moj Twitter nalog" ><img id="twitter" alt="twitter" src="images/3px.gif" width="20" height="20"/></a><a href="http://www.facebook.com/bowy.91" title="Moj Facebook nalog"><img id="facebook" alt="Facebook" src="images/3px.gif" width="20" height="20"/></a></p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
