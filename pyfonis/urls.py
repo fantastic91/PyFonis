@@ -12,8 +12,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:  
     url(r'^projekti/prikaz/(?P<projekat_id>\d+)/$', 'aplikacija.views.projekat'),
+    url(r'^prikaz/(?P<projekat_id>\d+)/$', 'aplikacija.views.projekat'),
     url(r'^accounts/login/$', 'aplikacija.views.accounts_login'),
-    url(r'^proba/$', 'aplikacija.views.proba'),
     url(r'^$', 'aplikacija.views.home', name='home'),
     #url(r'^pyfonis/', include('pyfonis.aplikacija.foo.urls')),
     url(r'^articles/(\d{4})/(\d{2})/(\d{2})/$', 'aplikacija.views.day_archive'),

@@ -30,8 +30,6 @@ def projekat(request, projekat_id):
 def accounts_login(request):
 	return render_to_response('accounts_login.html', context_instance=RequestContext(request))
 
-def proba(request):
-  return render_to_response('projekat.html', context_instance=RequestContext(request))
 
 
 def clan(request):
