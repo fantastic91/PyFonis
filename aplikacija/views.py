@@ -8,6 +8,7 @@ from aplikacija.forms import DodavanjeProjekta, DodajClana
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 import datetime
+from django.shortcuts import get_object_or_404
 
 
 def provjera_logina(view):
@@ -18,8 +19,20 @@ def provjera_logina(view):
     return novi_view
 
 
+def projekat(request, projekat_id):
+  
+    #return response 
+    podaci = Projekti.objects.filter(id=projekat_id)
+    return render_to_response('projekat.html', {'podaci':podaci }, context_instance=RequestContext(request))
+    
+
+
 def accounts_login(request):
 	return render_to_response('accounts_login.html', context_instance=RequestContext(request))
+
+def proba(request):
+  return render_to_response('projekat.html', context_instance=RequestContext(request))
+
 
 def clan(request):
   clanovi = Clan.objects.all()

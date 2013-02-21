@@ -13,6 +13,7 @@
 	border: 1px solid #333;
 	display: inline-block;
 	float: right;
+	font-size:13px!important;
 }
 .puni_prikaz {
 	height: 100%!important;
@@ -26,7 +27,8 @@
 	padding: 5px!important;
 	font-weight: bold!important;
 	background: #FF9!important;
-	width: 160px!important;
+	width: 150px!important;
+
 }
 #clanovi ul {
 	list-style-type: none;
@@ -34,6 +36,26 @@
 #clanovi ul li {
 	border-top: 1px solid #666;
 	padding: 5px;
+}
+#ukl_clanovi {
+   display: inline-block;
+    width: 100%;
+}
+#ukl_clanovi ul {
+    list-style-type: none;
+}
+#ukl_clanovi ul li {
+    border-bottom: 1px solid #666;
+    padding: 5px;
+}
+a {
+    text-decoration:none;
+    color:#009;
+
+}
+a:hover {
+   text-decoration:underline;
+   color:#900;
 }
 input[type=text] {
 	background: #FF9;
