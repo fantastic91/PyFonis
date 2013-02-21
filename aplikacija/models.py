@@ -15,5 +15,3 @@ class Projekti(models.Model):
   datum_kraj = models.DateTimeField()
   sala = models.CharField(max_length = 10)
   ukljuceni_clanovi = models.ManyToManyField(Clan, related_name='projekti_clanovi')
-
-  

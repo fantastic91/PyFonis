@@ -5,6 +5,36 @@
 	margin: 0;
 	padding: 0
 }
+#clanovi {
+	height: 25px;
+	overflow: hidden;
+	width: 160px;
+	background: #FF9;
+	border: 1px solid #333;
+	display: inline-block;
+	float: right;
+}
+.puni_prikaz {
+	height: 100%!important;
+}
+.broj_clanova {
+	font-size: 18px!important;
+	font-weight: bold!important;
+	text-align: center!important;
+}
+.prikazi {
+	padding: 5px!important;
+	font-weight: bold!important;
+	background: #FF9!important;
+	width: 160px!important;
+}
+#clanovi ul {
+	list-style-type: none;
+}
+#clanovi ul li {
+	border-top: 1px solid #666;
+	padding: 5px;
+}
 input[type=text] {
 	background: #FF9;
 	border: 1px solid #666;

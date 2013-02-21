@@ -26,20 +26,8 @@ def clan(request):
   return render_to_response('clan.html', {'clanovi' : clanovi}, context_instance=RequestContext(request))
 
 def home(request):
-    podaci = Projekti.objects.all()
-    #listap = Projekti.objects.get(id=4)
-    ukupno = Projekti.objects.get(id=4).ukljuceni_clanovi.all()
-    broj_clanova = []
-    brojac = 0
-    brprojekata = 0
-    for pr in podaci:
-        brprojekata+=1
-        IZABERI = [(brojac,brprojekata) for cl in Projekti.objects.get(id=brprojekata).ukljuceni_clanovi.all()]
-        for broj in Projekti.objects.get(id=brprojekata).ukljuceni_clanovi.all():
-            brojac+=1
-        broj_clanova.append(brojac)
-        brojac=0
-    return render_to_response('lista_projekata.html', {'Projekti' : podaci, 'ukupno':ukupno, 'broj_clanova':broj_clanova, 'IZABERI':IZABERI}, context_instance=RequestContext(request))
+    podaci = Projekti.objects.all().order_by('id')
+    return render_to_response('lista_projekata.html', {'Projekti' : podaci}, context_instance=RequestContext(request))
 	
 
 def upis(request):

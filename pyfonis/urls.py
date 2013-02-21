@@ -1,11 +1,16 @@
 from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
+from django.conf.urls.defaults import *
 from django.contrib import admin
 from aplikacija.views import provjera_logina
+from aplikacija.models import Projekti, Clan
+from django.views.generic import DetailView, list_detail
 admin.autodiscover()
 
+
+
 urlpatterns = patterns('',
-    # Examples:
+    # Examples:  
     url(r'^accounts/login/$', 'aplikacija.views.accounts_login'),
     url(r'^$', 'aplikacija.views.home', name='home'),
     #url(r'^pyfonis/', include('pyfonis.aplikacija.foo.urls')),
