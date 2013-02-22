@@ -42,33 +42,27 @@ def home(request):
 	
 
 def upis(request):
-    listap = Projekti.objects.get(id=4)
-    ukupno = Projekti.objects.get(id=4).ukljuceni_clanovi.all()
     if request.method == 'POST':
         form = DodavanjeProjekta(request.POST)
         if form.is_valid():
-        		
             cd = form.cleaned_data
-            koorid = Clan.objects.get(id=cd['izaberi_koordinatora'])
-            #spisak_izabranih = cd['izaberi_clanove']
             upis_projekti = Projekti(
 													naziv=cd['naziv_projekta'], 
 													opis=cd['opis'], 
-													koordinator=koorid,
+													koordinator=cd['izaberi_koordinatora'],
 													datum_pocetak=cd['datum_pocetak'],
 													datum_kraj=cd['datum_kraj'],
 													sala=cd['sala'],
-                        
                           )
-            
             upis_projekti.save()
-            #spisak_izabranih.save_m2m()
-            #upis_cl.save()
+            izabrani_clanovi = cd['izaberi_clanove']
+            for check in izabrani_clanovi:
+               upis_projekti.ukljuceni_clanovi.add(check)
             return HttpResponseRedirect('/upis/upisano/')
     else:
         form = DodavanjeProjekta()
     clanovi = Clan.objects.all()
-    return render_to_response('upis.html', {'form': form, 'clanovi':clanovi, 'ukupno':ukupno}, context_instance=RequestContext(request))
+    return render_to_response('upis.html', {'form': form, 'clanovi':clanovi}, context_instance=RequestContext(request))
 	
 	
 	

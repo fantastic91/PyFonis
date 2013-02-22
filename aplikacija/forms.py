@@ -4,31 +4,15 @@ from random import choice
 from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.databrowse.plugins.calendars import CalendarPlugin
 
-
-clan = Clan.objects.all()
-KOORDINATORI = []
-IZABERI = [(cl.id, cl.ime+" "+cl.prezime) for cl in clan]
-IZABERI.extend(KOORDINATORI)
-IZABERI = sorted(IZABERI)
-
-
 class DodavanjeProjekta(forms.Form):
-    #clan = Clan.objects.all()
-    #KOORDINATORI = []
-    #IZABERI = [(cl.id, cl.ime+" "+cl.prezime) for cl in clan]
-    #IZABERI.extend(KOORDINATORI)
     naziv_projekta = forms.CharField()
-    izaberi_koordinatora = forms.ChoiceField(choices=IZABERI, widget=forms.Select(attrs={'class':'forma'}))
-    izaberi_clanove = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(), choices=IZABERI)
-    #izaberi_clanove = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Clan.objects.all())
-    #ime_koordinatora = forms.CharField()
-    #prezime_koordinatora = forms.CharField()
-    #email_koordinatora = forms.EmailField(required=False)
+    izaberi_koordinatora = forms.ModelChoiceField(queryset=Clan.objects.all(), widget=forms.Select(attrs={'class':'forma'}))
+    izaberi_clanove = forms.ModelMultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, queryset=Clan.objects.all())
     sala = forms.CharField()
-    datum_pocetak = forms.DateField();
+    datum_pocetak = forms.DateField(label='Datum pocetka');
     datum_kraj = forms.DateField(label='Datum kraja');
-    opis = forms.CharField(widget=forms.Textarea);
-    
+    opis = forms.CharField(widget=forms.Textarea); 
+
     def clean_opis(self):
       opis = self.cleaned_data['opis']
       if len(opis) < 10:
@@ -51,3 +35,5 @@ class DodajClana(forms.Form):
       if Clan.objects.filter(email__icontains=email):
         raise forms.ValidationError('E-mail vec postoji u bazi!')
       return email
+    
+    

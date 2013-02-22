@@ -6,6 +6,10 @@ class Clan(models.Model):
   ime = models.CharField(max_length = 40)
   prezime = models.CharField(max_length = 40)
   email = models.EmailField()
+
+  def __unicode__(self):
+    return "%s %s" % (self.ime, self.prezime)
+    
   
 class Projekti(models.Model):
   naziv = models.CharField(max_length = 150)
