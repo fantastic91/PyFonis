@@ -44,6 +44,22 @@ def clan_prikaz_edit(request, clan_id):
   podaci = Clan.objects.filter(id=clan_id)
   return render_to_response('clan_edit.html', {'podaci':podaci , 'form':form}, context_instance=RequestContext(request))
 
+
+def projekat_delete(request, projekat_id):
+  projekat_za_delete = Projekti.objects.get(pk=projekat_id)
+  projekat_za_delete.delete()
+  return HttpResponseRedirect('/upis/obrisano/')
+
+def projekat_obrisano(request):
+  return render_to_response('projekat_obrisano.html', context_instance=RequestContext(request))
+
+def clan_delete(request, clan_id):
+  clan_za_delete = Clan.objects.get(pk=clan_id)
+  clan_za_delete.delete()
+  return HttpResponseRedirect('/clan/obrisano/')
+
+def clan_obrisano(request):
+  return render_to_response('clan_obrisano.html', context_instance=RequestContext(request))
     
 def projekat_edit(request, projekat_id):
   projekat_za_edit = Projekti.objects.get(pk=projekat_id)

@@ -359,3 +359,13 @@ body {
 #edit:hover {
 	background: url(../images/file_edit_hover.png);
 }
+#delete {
+	background: url(../images/file_delete.png);
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin: 0 0 0 10px;
+}
+#delete:hover {
+	background: url(../images/file_delete_hover.png);
+}

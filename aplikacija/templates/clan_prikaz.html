@@ -6,7 +6,7 @@
 {% block nav_lista %}current{% endblock %}
 
  
-      {% block content_title %}{% for ss in podaci %}Član: {{ ss.ime }} {{ ss.prezime }}<a href="edit/" title="Izmjena podataka"><div id="edit"></div></a>{% endfor %}{% endblock %}
+      {% block content_title %}{% for ss in podaci %}Član: {{ ss.ime }} {{ ss.prezime }}<a href="edit/" title="Izmjena podataka"><div id="edit"></div></a><a href="delete/" title="Obriši člana"><div id="delete"></div></a>{% endfor %}{% endblock %}
 
 
 {% block content %}{% if podaci %}
