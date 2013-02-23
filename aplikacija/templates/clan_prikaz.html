@@ -1,0 +1,50 @@
+{% extends "baza.html" %}
+
+{% block title %}Detaljni prikaz informacija o clanu{% endblock %}
+
+{% block nav_home %}{% endblock %}
+{% block nav_lista %}current{% endblock %}
+
+ 
+      {% block content_title %}{% for ss in podaci %}Član: {{ ss.ime }} {{ ss.prezime }}<a href="edit/" title="Izmjena podataka"><div id="edit"></div></a>{% endfor %}{% endblock %}
+
+
+{% block content %}{% if podaci %}
+      <div style="">
+  <div class="tabelaZaIspis">
+          <table width="509" >
+      <tr>
+              <td width="50"> ID </td>
+              <td width="100"> Ime </td>
+              <td width="100"> Prezime </td>
+              <td width="120"> E-mail </td>
+            </tr>
+      {% for pr in podaci %}
+      <tr>
+              <td style="text-align:center; font-weight:bold;">{{ pr.id }}</td>
+              <td>{{ pr.ime }}
+              <td>{{ pr.prezime }}</td>
+              <td>{{ pr.email }}</td>
+            </tr>
+      
+      {% endfor %}
+    </table>
+        </div>
+</div>
+      {% endif %}{% if not podaci %}
+      <p style="font-size:20px; padding:50px; font-weight:bold; text-align:center;">Traženi projekat nije pronađen!</p>
+      <br/>
+      {% endif %}
+{% endblock %}
+{% block content_2 %}{% if podaci %}{% for pr in podaci %} {% if pr.ukljuceni_clanovi.all|length %}
+      <div class="kolona" style="padding:10px">
+  <h3>Uključeni članovi</h3>
+  <div id="ukl_clanovi">
+          <ul>
+      {% for clan in pr.ukljuceni_clanovi.all %}
+      <li>{{ clan.ime }} {{ clan.prezime }}</li>
+      {% endfor %}
+    </ul>
+        </div>
+</div>
+      {% endif %}{% endfor %}{% endif %} {% endblock %}

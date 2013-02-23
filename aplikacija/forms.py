@@ -3,6 +3,7 @@ from aplikacija.models import Clan, Projekti
 from random import choice
 from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.databrowse.plugins.calendars import CalendarPlugin
+from django.forms.models import ModelForm
 
 class DodavanjeProjekta(forms.Form):
     naziv_projekta = forms.CharField()
@@ -24,7 +25,7 @@ class DodavanjeProjekta(forms.Form):
       if Projekti.objects.filter(naziv__iexact=naziv):
         raise forms.ValidationError('Naziv projekta vec postoji u bazi')
       return naziv
-    
+  
 class DodajClana(forms.Form):
     ime_clana = forms.CharField()
     prezime_clana = forms.CharField()
@@ -36,4 +37,10 @@ class DodajClana(forms.Form):
         raise forms.ValidationError('E-mail vec postoji u bazi!')
       return email
     
-    
+class DodajClanaModel(ModelForm):
+    class Meta:
+      model = Clan
+
+class DodavanjeProjektaModel(ModelForm):
+    class Meta:
+      model = Projekti

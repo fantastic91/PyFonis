@@ -4,11 +4,12 @@ import django.shortcuts
 from django.template import RequestContext, Template
 from aplikacija.models import Projekti, Clan
 from django.http import HttpResponse
-from aplikacija.forms import DodavanjeProjekta, DodajClana
+from aplikacija.forms import DodavanjeProjekta, DodajClana, DodavanjeProjektaModel, DodajClanaModel
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 import datetime
 from django.shortcuts import get_object_or_404
+from django.forms.models import inlineformset_factory
 
 
 def provjera_logina(view):
@@ -20,12 +21,45 @@ def provjera_logina(view):
 
 
 def projekat(request, projekat_id):
-  
-    #return response 
-    podaci = Projekti.objects.filter(id=projekat_id)
-    return render_to_response('projekat.html', {'podaci':podaci }, context_instance=RequestContext(request))
-    
+  podaci = Projekti.objects.filter(id=projekat_id)
+  return render_to_response('projekat.html', {'podaci':podaci}, context_instance=RequestContext(request))
 
+def clan_prikaz(request, clan_id):
+  podaci = Clan.objects.filter(id=clan_id)
+  return render_to_response('clan_prikaz.html', {'podaci':podaci}, context_instance=RequestContext(request))
+
+def clan_prikaz_edit(request, clan_id):
+  clan_za_edit = Clan.objects.get(pk=clan_id)
+  if request.method == 'POST':
+    form = DodajClanaModel(request.POST, instance=clan_za_edit)
+    if form.is_valid():
+      try: 
+        form.save()
+        return HttpResponseRedirect('/clan/upisano/')
+      except: 
+        return HttpResponseRedirect('/clan/')
+      
+  else:
+    form = DodajClanaModel(instance=clan_za_edit)
+  podaci = Clan.objects.filter(id=clan_id)
+  return render_to_response('clan_edit.html', {'podaci':podaci , 'form':form}, context_instance=RequestContext(request))
+
+    
+def projekat_edit(request, projekat_id):
+  projekat_za_edit = Projekti.objects.get(pk=projekat_id)
+  if request.method == 'POST':
+    form = DodavanjeProjektaModel(request.POST, instance=projekat_za_edit)
+    if form.is_valid():
+      try: 
+        form.save()
+        return HttpResponseRedirect('/upis/upisano/')
+      except: 
+        return HttpResponseRedirect('/projekti/prikaz/')
+      
+  else:
+    form = DodavanjeProjektaModel(instance=projekat_za_edit)
+  podaci = Projekti.objects.filter(id=projekat_id)
+  return render_to_response('projekat_edit.html', {'podaci':podaci , 'form':form}, context_instance=RequestContext(request))
 
 def accounts_login(request):
 	return render_to_response('accounts_login.html', context_instance=RequestContext(request))

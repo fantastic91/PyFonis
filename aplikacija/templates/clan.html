@@ -14,15 +14,13 @@
   <table width="978" >
     <tr>
       <td width="50"> ID </td>
-      <td width="150" > Ime </td>
-      <td width="150"> Prezime </td>
+      <td width="150" > Ime i prezime</td>
       <td width="150"> E-mail </td> 
     </tr>
     {% for clan in clanovi %}
     <tr>
       <td style="text-align:center; font-weight:bold;">{{ clan.id }}</td>
-      <td >{{ clan.ime }}</td>
-      <td>{{ clan.prezime }}</td>
+      <td ><a href="prikaz/{{ clan.id }}">{{ clan.ime }} {{ clan.prezime }}</a></td>
       <td>{{ clan.email }}</td> 
      
     

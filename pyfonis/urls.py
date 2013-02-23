@@ -11,6 +11,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:  
+    url(r'^projekti/prikaz/(?P<projekat_id>\d+)/edit/$', 'aplikacija.views.projekat_edit'),
+    url(r'^prikaz/(?P<projekat_id>\d+)/edit/$', 'aplikacija.views.projekat_edit'),
     url(r'^projekti/prikaz/(?P<projekat_id>\d+)/$', 'aplikacija.views.projekat'),
     url(r'^prikaz/(?P<projekat_id>\d+)/$', 'aplikacija.views.projekat'),
     url(r'^accounts/login/$', 'aplikacija.views.accounts_login'),
@@ -21,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^clan/dodaj/$', 'aplikacija.views.clan_dodaj'),
     url(r'^projekti/$', 'aplikacija.views.home'),
     url(r'^clan/prikaz/(?P<clan_id>\d+)/$', 'aplikacija.views.clan_prikaz'),
+    url(r'^clan/prikaz/(?P<clan_id>\d+)/edit/$', 'aplikacija.views.clan_prikaz_edit'),
     url(r'^clan/$', 'aplikacija.views.clan'),
     url(r'^pretraga-forma/$', 'aplikacija.views.pretraga_forma'),
     url(r'^pretraga/$', 'aplikacija.views.pretraga'),

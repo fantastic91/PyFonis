@@ -10,7 +10,8 @@ class Clan(models.Model):
   def __unicode__(self):
     return "%s %s" % (self.ime, self.prezime)
     
-  
+
+ 
 class Projekti(models.Model):
   naziv = models.CharField(max_length = 150)
   koordinator = models.ForeignKey(Clan, related_name='projekti_koordinator')

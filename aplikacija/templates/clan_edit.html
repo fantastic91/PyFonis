@@ -1,0 +1,30 @@
+{% extends "baza.html" %}
+
+{% block title %}Izmjena podataka o clanu{% endblock %}
+
+{% block nav_home %}{% endblock %}
+{% block nav_lista %}current{% endblock %}
+
+ 
+      {% block content_title %}{% for ss in podaci %}Član: {{ ss.ime }} {{ ss.prezime }}{% endfor %}{% endblock %}
+
+
+{% block content %}{% if podaci %}
+<form action="." method="post">
+  {% csrf_token %}
+  <div class="tabelaZaIspisEdit">
+  <table>
+  <tr>
+    <div class="editforma">{{ form.as_table }} </div>
+  </tr>
+  <tr>
+</form>
+</div>
+</tr>
+</table>
+<input type="submit" value="Sačuvaj promene" style="margin:20px; padding:3px; border:4px double #fff; float:right; display:block; background:#900; color:#fff" >
+{% endif %}{% if not podaci %}
+<p style="font-size:20px; padding:50px; font-weight:bold; text-align:center;">Traženi projekat nije pronađen!</p>
+<br/>
+{% endif %}
+{% endblock %} 
