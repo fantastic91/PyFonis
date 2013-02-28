@@ -2,47 +2,57 @@
 
 {% block title %}Rezultati pretrage{% endblock %}
 
-{% block nav_home %}{% endblock %}
-{% block nav_pretraga %}current{% endblock %}
-
-
-{% block content_title %}Rezultati pretrage{% endblock %}
+{% block content_title %}Rezultati pretrage
+<p>za traženi pojam: <b>{{ query }}</b></p>
+{% endblock %}
 
 {% block content %}
-<p>Rezultati pretrage za traženi pojam: <b>{{ query }}</b> </p>
-<br />
 {% if not projekti %}
 <p>
-<h4>Žao nam je! Traženi pojam nije pronađen. </h4>
+<h3>Žao nam je! Traženi pojam nije pronađen. </h3>
 </p>
 {% endif %}
 	{% if projekti %}
-<p>Pronađeno je <b>{{ projekti|length }}</b> rezultata. </p>
+<p>Pronađen{{ projekti|pluralize:" je,a su" }}<b> {{ projekti|length }}</b> rezultat{{ projekti|pluralize:",a" }}. </p>
 <br />
-<div class="tabelaZaIspis " >
-  <table width="978" >
+<table class="table table-striped">
+  <thead>
     <tr>
-      <td width="60"> ID </td>
-      <td width="263" > Naziv projekta </td>
-      <td width="130"> Koordinator </td>
-      <td width="221"> Datum početka </td>
-      <td width="183"> Datum završetka </td>
-      <td width="93"> Sala </td>
+      <th style="text-align:center;"><i class="icon-chevron-down"></i> ID</th>
+      <th><i class="icon-file"></i> Naziv projekta</th>
+      <th><i class="icon-user"></i> Koordinator</th>
+      <th><i class="icon-calendar"></i> Datum početka</th>
+      <th><i class="icon-calendar"></i> Datum završetka</th>
+      <th><i class="icon-home"></i> Sala</th>
+      <th><i class="icon-tags"></i> Broj članova</th>
     </tr>
-    {% endif %}
-    {% for pr in projekti %}
-    <tr>
-      <td style="text-align:center; font-weight:bold;">{{ pr.id }}</td>
-      <td style="font-weight:bold;!important">{{ pr.naziv }}</td>
-      <td>{{ pr.koordinator.ime }} {{ pr.koordinator.prezime }}</td>
-      <td>{{ pr.datum_pocetak }}</td>
-      <td>{{ pr.datum_kraj }}</td>
-      <td style="text-align:center;">{{ pr.sala }}</td>
-    </tr>
-    <tr>
-      <td colspan="6">{{ pr.opis }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-</div>
+  </thead>
+  <tbody>
+  
+  {% for pr in projekti %}
+  <tr>
+    <td style="text-align:center;">{{ pr.id }}</td>
+    <td><a href="/projekti/prikaz/{{ pr.id }}/">{{ pr.naziv }}</a></td>
+    <td><a href="/clanovi/prikaz/{{ pr.koordinator.id }}/">{{ pr.koordinator.ime }} {{ pr.koordinator.prezime }}</a></td>
+    <td>{{ pr.datum_pocetak|date:"d.m.o." }}</td>
+    <td>{{ pr.datum_kraj|date:"d.m.o." }}</td>
+    <td>{{ pr.sala }}</td>
+    <td class="broj_clanova"><p>{{ pr.ukljuceni_clanovi.all|length }}</p>
+      {% if pr.ukljuceni_clanovi.all|length %}
+      <li class="dropdown btn btn-primary razmaklijevo"><i class="icon-user icon-white"></i> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;">Uključeni članovi <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          {% for clan in pr.ukljuceni_clanovi.all %}
+          <li>
+            <p class="listasize">{{ clan.ime }} {{ clan.prezime }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %} </td>
+  </tr>
+  {% endfor %}
+    </tbody>
+  
+</table>
+{% endif %}
 {% endblock %}

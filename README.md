@@ -7,5 +7,6 @@ Funkcionalnosti:
 - Lista projekata
 - Lista clanova
 - Pretraga
-- Dodavanje projekata
-- Dodavanje clanova
+- Add projekata/clanova
+- Edit projekata/clanova
+- Delete projekata/clanova

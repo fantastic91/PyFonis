@@ -1,50 +1,70 @@
 {% extends "baza.html" %}
 
-{% block title %}Detaljni prikaz informacija o clanu{% endblock %}
+{% block title %}Detaljni prikaz informacija o članu{% endblock %}
 
-{% block nav_home %}{% endblock %}
-{% block nav_lista %}current{% endblock %}
+{% block nav_clan %}active{% endblock %}
 
- 
-      {% block content_title %}{% for ss in podaci %}Član: {{ ss.ime }} {{ ss.prezime }}<a href="edit/" title="Izmjena podataka"><div id="edit"></div></a><a href="delete/" title="Obriši člana"><div id="delete"></div></a>{% endfor %}{% endblock %}
-
-
-{% block content %}{% if podaci %}
-      <div style="">
-  <div class="tabelaZaIspis">
-          <table width="509" >
-      <tr>
-              <td width="50"> ID </td>
-              <td width="100"> Ime </td>
-              <td width="100"> Prezime </td>
-              <td width="120"> E-mail </td>
-            </tr>
-      {% for pr in podaci %}
-      <tr>
-              <td style="text-align:center; font-weight:bold;">{{ pr.id }}</td>
-              <td>{{ pr.ime }}
-              <td>{{ pr.prezime }}</td>
-              <td>{{ pr.email }}</td>
-            </tr>
-      
-      {% endfor %}
-    </table>
-        </div>
-</div>
-      {% endif %}{% if not podaci %}
-      <p style="font-size:20px; padding:50px; font-weight:bold; text-align:center;">Traženi projekat nije pronađen!</p>
-      <br/>
-      {% endif %}
+{% block content_title %}{{ podaci.ime }} {{ podaci.prezime }}
+<p></p>
+<form>
+  <p>
+    <button class="btn btn-info btn-large margin-right" formaction="edit/"><i class="icon-pencil icon-white"></i> Izmeni podatke</button>
+    <button class="btn btn-danger btn-large" formaction="delete/"><i class="icon-trash icon-white"></i> Obriši člana</button>
+</form>
+</p>
+<div class="head-inline-projekat"> {% if podaci.projekti_koordinator.all|length %}
+  <p class="text-right">Koordinator na <span class="brojpr"><b>{{ podaci.projekti_koordinator.all|length }}</b></span> projekt{{ podaci.projekti_koordinator.all|pluralize:"u,a" }}.</p>
+  {% endif %}
+  {% if podaci.projekti_clanovi.all|length %}
+  <p class="text-right">Član na <span class="brojpr"><b>{{ podaci.projekti_clanovi.all|length }}</b></span> projekt{{ podaci.projekti_clanovi.all|pluralize:"u,a" }}.</p>
+  {% endif %} </div>
 {% endblock %}
-{% block content_2 %}{% if podaci %}{% for pr in podaci %} {% if pr.ukljuceni_clanovi.all|length %}
-      <div class="kolona" style="padding:10px">
+
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align:center;"><i class="icon-chevron-down"></i> ID</th>
+      <th><i class="icon-user"></i> Ime i prezime</th>
+      <th style="text-align:center;"><i class="icon-envelope"></i> E-mail</th>
+      <th style="text-align:center;"><i class="icon-tag"></i> Koordinator</th>
+      <th style="text-align:center;"><i class="icon-tags"></i> Član</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center;">{{ podaci.id }}</td>
+      <td>{{ podaci.ime }} {{ podaci.prezime }}</td>
+      <td style="text-align:center;">{{ podaci.email }}</td>
+      <td><ul class="unstyled" style="text-align:center;">
+          {% for proj in podaci.projekti_koordinator.all %}
+          <li><a href="/projekti/prikaz/{{ proj.id }}/">{{ proj.naziv }}</a></li>
+          {% endfor %}{% if not podaci.projekti_koordinator.all %}/{% endif %}
+        </ul></td>
+      <td><ul class="unstyled" style="text-align:center;">
+          {% for proj in podaci.projekti_clanovi.all %}
+          <li><a href="/projekti/prikaz/{{ proj.id }}/">{{ proj.naziv }}</a></li>
+          {% endfor %}{% if not podaci.projekti_clanovi.all %}
+          <center>
+            /
+          </center>
+          {% endif %}
+        </ul></td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block content_2 %}{% if podaci.ukljuceni_clanovi.all|length %}
+<div class="kolona" style="padding:10px">
   <h3>Uključeni članovi</h3>
   <div id="ukl_clanovi">
-          <ul>
-      {% for clan in pr.ukljuceni_clanovi.all %}
+    <ul>
+      {% for clan in podaci.ukljuceni_clanovi.all %}
       <li>{{ clan.ime }} {{ clan.prezime }}</li>
       {% endfor %}
     </ul>
-        </div>
+  </div>
 </div>
-      {% endif %}{% endfor %}{% endif %} {% endblock %}
+{% endif %}
+{% endblock %}

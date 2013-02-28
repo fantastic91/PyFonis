@@ -1,31 +1,35 @@
 {% extends "baza.html" %}
 
-{% block title %}Spisak članova{% endblock %}
+{% block title %}Lista članova{% endblock %}
 
-{% block nav_home %}{% endblock %}
-{% block nav_clan %}current{% endblock %}
+{% block nav_clan %}active{% endblock %}
 
 
-{% block content_title %}Spisak članova{% endblock %}
+{% block content_title %}Lista članova
+<div class="head-inline">
+  <p class="text-right">Aktivnih članova: <span class="brojpr"><b>{{ clanovi|length }}</b></span></p>
+</div>
+{% endblock %}
 
 {% block content %}
-<p style="text-align:right;">U bazi se nalazi <span style="font-size:20px; padding:3px; background:#333; color:#fff; display:inline-block;"><b>{{ clanovi|length }}</b></span> članova</p>
-<div class="tabelaZaIspis " >
-  <table width="978" >
+<table class="table table-striped">
+  <thead>
     <tr>
-      <td width="50"> ID </td>
-      <td width="150" > Ime i prezime</td>
-      <td width="150"> E-mail </td> 
+      <th style="text-align:center;"><i class="icon-chevron-down"></i> ID</th>
+      <th><i class="icon-user"></i> Ime i prezime</th>
+      <th><i class="icon-envelope"></i> E-mail</th>
     </tr>
-    {% for clan in clanovi %}
-    <tr>
-      <td style="text-align:center; font-weight:bold;">{{ clan.id }}</td>
-      <td ><a href="prikaz/{{ clan.id }}">{{ clan.ime }} {{ clan.prezime }}</a></td>
-      <td>{{ clan.email }}</td> 
-     
-    
-    </tr>
-    {% endfor %}
-  </table>
-</div>
+  </thead>
+  <tbody>
+  
+  {% for clan in clanovi %}
+  <tr>
+    <td style="text-align:center;">{{ clan.id }}</td>
+    <td><a href="prikaz/{{ clan.id }}">{{ clan.ime }} {{ clan.prezime }}</a></td>
+    <td>{{ clan.email }}</td>
+  </tr>
+  {% endfor %}
+    </tbody>
+  
+</table>
 {% endblock %}

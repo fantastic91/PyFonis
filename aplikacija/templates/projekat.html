@@ -1,57 +1,90 @@
 {% extends "baza.html" %}
 
-{% block title %}Lista projekata{% endblock %}
+{% block title %}Prikaz projekta{% endblock %}
 
-{% block nav_home %}{% endblock %}
-{% block nav_lista %}current{% endblock %}
+{% block nav_lista %}active{% endblock %}
 
- 
-      {% block content_title %}{% for ss in podaci %}Projekat: {{ ss.naziv }}<a href="edit/" title="Izmjena projekta"><div id="edit"></div></a><a href="delete/" title="Obriši projekat"><div id="delete"></div></a>{% endfor %}{% endblock %}
+{% block content_title %}{{ podaci.naziv }}
+<p class="opis-projekta-header" style="padding-top:10px;">{{ podaci.opis }}</p>
+<p>
+<form>
+  <button class="btn btn-info btn-large margin-right" formaction="edit/"><i class="icon-pencil icon-white"></i> Izmeni projekat</button>
+  <button class="btn btn-danger btn-large" formaction="delete/"><i class="icon-trash icon-white"></i> Obriši projekat</button>
+</form>
+</p>
+<div class="head-inline-projekat">
+  <p class="text-right">Trajanje projekta: <span class="brojpr"><b>{{ broj_dana.days }}</b></span> dan{{ broj_dana.days|pluralize:",a" }}</p>
+  <p class="text-right">Status projekta: {% if status %}
+    <button class="btn btn-success" style="margin-top:-7px;">AKTIVAN</button>
+    {% endif %}
+    
+    {% if not status %}
+    <button class="btn btn-danger" style="margin-top:-7px;">NEAKTIVAN</button>
+    {% endif %} </p>
+</div>
+{% if not podaci %}
+<h1 style="text-align:center;">Traženi projekat nije pronađen!</h1>
+<br/>
+<p class="center_text_align">
+  <button class="btn btn-large">
+  <i class="icon-home"></i><a href="/" style="color:#000;"> Nazad</a>
+  </button>
+</p>
+{% endif %}
 
+      {% endblock %}
 
 {% block content %}{% if podaci %}
-      <div style="">
-  <div class="tabelaZaIspis">
-          <table width="726" >
-      <tr>
-              <td width="41"> ID </td>
-              <td width="150"> Koordinator </td>
-              <td width="150"> Datum početka </td>
-              <td width="150"> Datum završetka </td>
-              <td width="80"> Sala </td>
-              <td width="80"> Broj članova </td>
-            </tr>
-      {% for pr in podaci %}
-      <tr>
-              <td style="text-align:center; font-weight:bold;">{{ pr.id }}</td>
-              <td>{{ pr.koordinator.ime }} {{ pr.koordinator.prezime }}</td>
-              <td>{{ pr.datum_pocetak }}</td>
-              <td>{{ pr.datum_kraj }}</td>
-              <td style="text-align:center; ">{{ pr.sala }}</td>
-              <td class="broj_clanova">{{ pr.ukljuceni_clanovi.all|length }}</td>
-            </tr>
-      <tr>
-              <td colspan="7" ><p style="padding:5px; background:#7f0000; color:#fff; font-weight: bold; display:inline-block; margin:5px;">OPIS:</p>
-          {{ pr.opis }} 
-            </tr>
-      {% endfor %}
-    </table>
-        </div>
-</div>
-      {% endif %}{% if not podaci %}
-      <p style="font-size:20px; padding:50px; font-weight:bold; text-align:center;">Traženi projekat nije pronađen!</p>
-      <br/>
-      {% endif %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align:center;"><i class="icon-chevron-down"></i> ID</th>
+      <th><i class="icon-file"></i> Naziv projekta</th>
+      <th style="text-align:center;"><i class="icon-user"></i> Koordinator</th>
+      <th style="text-align:center;"><i class="icon-calendar"></i> Datum početka</th>
+      <th style="text-align:center;"><i class="icon-calendar"></i> Datum završetka</th>
+      <th style="text-align:center;"><i class="icon-home"></i> Sala</th>
+      <th style="text-align:center;"><i class="icon-tags"></i> Broj članova</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center;">{{ podaci.id }}</td>
+      <td>{{ podaci.naziv }}</td>
+      <td style="text-align:center;"><a href="/clanovi/prikaz/{{ podaci.koordinator.id }}">{{ podaci.koordinator.ime }} {{ podaci.koordinator.prezime }}</a></td>
+      <td style="text-align:center;">{{ podaci.datum_pocetak|date:"d.m.o." }}</td>
+      <td style="text-align:center;">{{ podaci.datum_kraj|date:"d.m.o." }}</td>
+      <td style="text-align:center;">{{ podaci.sala }}</td>
+      <td style="text-align:center;">{{ podaci.ukljuceni_clanovi.all|length }}</td>
+    </tr>
+  </tbody>
+</table>
+<span class="brojpr"><b>OPIS: </b></span> {{ podaci.opis }} <br />
+<br />
+{% if podaci.ukljuceni_clanovi.all|length %}
+<h2>Uključeni članovi</h2>
+{% endif %}
+<p>
+<table class="table table-striped">
+  <tbody>
+  
+  {% for clan in podaci.ukljuceni_clanovi.all %}
+  
+    <td><i class="icon-user"></i> <a href="/clanovi/prikaz/{{ clan.id }}/">{{ clan.ime }} {{ clan.prezime }}</a></td>
+    {% endfor %}
+      </tbody>
+</table>
+</p>
+{% endif %}
 {% endblock %}
-{% block content_2 %}{% if podaci %}{% for pr in podaci %} {% if pr.ukljuceni_clanovi.all|length %}
-      <div class="kolona" style="padding:10px">
-  <h3>Uključeni članovi</h3>
-  <div id="ukl_clanovi">
-          <ul>
-      {% for clan in pr.ukljuceni_clanovi.all %}
-      <li>{{ clan.ime }} {{ clan.prezime }}</li>
-      {% endfor %}
-    </ul>
-        </div>
-</div>
-      {% endif %}{% endfor %}{% endif %} {% endblock %}
+
+
+
+{% block script %}<script> $(document).ready(function() {
+    var elem = $(".opis-projekta-header");
+    if(elem){
+        if (elem.text().length > 70) {
+                elem.text(elem.text().substr(0,70))
+                elem.append("...") }
+    }
+});</script>{% endblock %}

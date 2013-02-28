@@ -1,0 +1,135 @@
+/* PYTHON FONIS - Milos Bovan */
+div.head-inline {
+	display: inline-block;
+	float: right;
+}
+div.checkbox ul {
+	list-style-type: none;
+}
+div.head-inline-projekat {
+	margin-top: -150px;
+	display: inline-block;
+	float: right;
+}
+.margin-right {
+	margin-right: 10px;
+}
+.max_width {
+}
+/* Ukljuceni clanovi
+------------------------------------- */
+.max_height {
+	min-height: 90.6%;
+	text-align: left;
+	position: relative;
+	height: auto !important; /* for modern browsers */
+	height: 100%; /* for IE */
+	top: 0;
+}
+.razmaklijevo {
+	margin-left: 20px;
+}
+.listasize {
+	color: #000;
+	font-size: 13px!important;
+	margin: 0;
+	text-shadow: 1px 1px 1px #fff;
+}
+.broj_clanova p {
+	font-weight: bold;
+	display: inline-block;
+	font-size: 16px;
+}
+.brojpr {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	font-size: 20px;
+	padding: 3px 6px 3px 6px;
+	background: #1E599B;
+	color: #fff;
+	display: inline-block;
+}
+.right_text_align {
+	text-align: right;
+}
+.center_text_align {
+	text-align: center;
+}
+.notfound {
+	font-size: 60px;
+	padding: 50px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1;
+}
+.ogranicenje {
+	overflow: ellipsis;
+}
+/* headbig
+-------------------------------------------------- */
+
+.naslov {
+	min-width: 320px;
+	text-align: left;
+	margin: 0 100px;
+	position: relative;
+	z-index: 2;
+}
+/* Base class
+------------------------- */
+
+.headbig {
+	width: auto;
+	position: relative;
+	padding: 30px 0;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+	background: rgb(30,87,153); /* Old browsers */
+	background: -moz-linear-gradient(left, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(4,118,232,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(30,87,153,1)), color-stop(50%, rgba(41,137,216,1)), color-stop(100%, rgba(4,118,232,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(4,118,232,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(4,118,232,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(4,118,232,1) 100%); /* IE10+ */
+	background: linear-gradient(to right, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(4,118,232,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#0476e8', GradientType=1 ); /* IE6-9 */
+}
+.headbig h1 {
+	font-size: 60px;
+	font-weight: bold;
+	letter-spacing: -1px;
+	line-height: 1;
+}
+.headbig p {
+	font-size: 24px;
+	font-weight: 300;
+	line-height: 1.25;
+	margin-bottom: 30px;
+}
+/* Link styles (used on .masthead-links as well) */
+.headbig a {
+	color: #fff;
+	color: rgba(255,255,255,.5);
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+.headbig a:hover {
+	color: #fff;
+	text-shadow: 0 0 10px rgba(255,255,255,.25);
+}
+.headbig:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: url(../img/after.png) repeat center center;
+	opacity: .4;
+}
+.razmak {
+	height: 10px;
+}

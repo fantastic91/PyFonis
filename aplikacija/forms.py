@@ -10,8 +10,8 @@ class DodavanjeProjekta(forms.Form):
     izaberi_koordinatora = forms.ModelChoiceField(queryset=Clan.objects.all(), widget=forms.Select(attrs={'class':'forma'}))
     izaberi_clanove = forms.ModelMultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, queryset=Clan.objects.all())
     sala = forms.CharField()
-    datum_pocetak = forms.DateField(label='Datum pocetka');
-    datum_kraj = forms.DateField(label='Datum kraja');
+    datum_pocetak = forms.DateField(label='Datum pocetka', input_formats=['%d/%m/%Y', '%d.%m.%Y.']);
+    datum_kraj = forms.DateField(label='Datum kraja', input_formats=['%d/%m/%Y', '%d.%m.%Y.']);
     opis = forms.CharField(widget=forms.Textarea); 
 
     def clean_opis(self):

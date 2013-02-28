@@ -1,30 +1,18 @@
 {% extends "baza.html" %}
 
-{% block title %}Lista projekata{% endblock %}
+{% block title %}Izmena podataka o projektu{% endblock %}
 
-{% block nav_home %}{% endblock %}
-{% block nav_lista %}current{% endblock %}
+{% block nav_lista %}active{% endblock %}
 
- 
-      {% block content_title %}{% for ss in podaci %}Projekat: {{ ss.naziv }}{% endfor %}{% endblock %}
-
+{% block content_title %}{{ podaci.naziv }}{% endblock %}
 
 {% block content %}{% if podaci %}
 <form action="." method="post">
-  {% csrf_token %}
-  <div class="tabelaZaIspisEdit">
-  <table>
-  <tr>
-    <div class="editforma">{{ form.as_table }} </div>
-  </tr>
-  <tr>
-</form>
-</div>
-</tr>
-</table>
-<input type="submit" value="Sačuvaj promene" style="margin:20px; padding:3px; border:4px double #fff; float:right; display:block; background:#900; color:#fff" >
+{% csrf_token %}
+  {{ form.as_table }} <br/>
+  <br/>
+  <input type="submit" value="Sačuvaj promene" class="btn btn-large btn-primary">
 {% endif %}{% if not podaci %}
-<p style="font-size:20px; padding:50px; font-weight:bold; text-align:center;">Traženi projekat nije pronađen!</p>
-<br/>
+<h3>Traženi projekat nije pronađen!</h3>
 {% endif %}
 {% endblock %} 

@@ -2,61 +2,53 @@
 
 {% block title %}Lista projekata{% endblock %}
 
-{% block nav_home %}{% endblock %}
-{% block nav_lista %}current{% endblock %}
 
+{% block nav_lista %}active{% endblock %}
 
-{% block content_title %}Lista projekata{% endblock %}
-
-{% block content %}
-<p style="text-align:right;">U bazi se nalazi <span style="font-size:20px; padding:3px; background:#333; color:#fff; display:inline-block;"><b>{{ Projekti|length }}</b></span> projekata</p>
-<div style="">
-  <div class="tabelaZaIspis">
-    <table width="930" >
-      <tr>
-        <td width="57"> ID </td>
-        <td width="249" > Naziv projekta </td>
-        <td width="146"> Koordinator </td>
-        <td width="182"> Datum početka </td>
-        <td width="183"> Datum završetka </td>
-        <td width="85"> Sala </td>
-        <td width="85"> Broj članova </td>
-      </tr>
-      {% for pr in Projekti %}
-      <tr>
-        <td style="text-align:center; font-weight:bold;">{{ pr.id }}</td>
-        <td style="font-weight:bold;!important"><a href="prikaz/{{ pr.id }}">{{ pr.naziv }}</a></td>
-        <td><a href="/clan/prikaz/{{ pr.koordinator.id }}">{{ pr.koordinator.ime }} {{ pr.koordinator.prezime }}</a></td>
-        <td>{{ pr.datum_pocetak }}</td>
-        <td>{{ pr.datum_kraj }}</td>
-        <td style="text-align:center; ">{{ pr.sala }}</td>
-        <td class="broj_clanova">{{ pr.ukljuceni_clanovi.all|length }} {% if pr.ukljuceni_clanovi.all|length %}
-          <div id="clanovi" onclick="this.className='puni_prikaz';">
-            <p class="prikazi">Prikaži članove projekta</p>
-            <ul>
-              {% for clan in pr.ukljuceni_clanovi.all %}
-              <li>{{ clan.ime }} {{ clan.prezime }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-          {% endif %} </td>
-      </tr>
-      <!--<tr>
-        <td colspan="7" >{{ pr.opis }}
-          {% if pr.ukljuceni_clanovi.all|length %}
-          <div id="clanovi" onclick="this.className='puni_prikaz';">
-            <p class="prikazi">Prikaži članove projekta</p>
-            <ul>
-              {% for clan in pr.ukljuceni_clanovi.all %}
-              <li>{{ clan.ime }} {{ clan.prezime }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-          {% endif %} 
-      </tr>-->
-      {% endfor %}
-    </table>
-  </div>
-</div>
+{% block content_title %}Lista projekata
+<div class="head-inline">
+  <p class="text-right">Aktivnih projekata: <span class="brojpr"><b>{{ Projekti|length }}</b></span></p>
 </div>
 {% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align:center;"><i class="icon-chevron-down"></i> ID</th>
+      <th><i class="icon-file"></i> Naziv projekta</th>
+      <th><i class="icon-user"></i> Koordinator</th>
+      <th><i class="icon-calendar"></i> Datum početka</th>
+      <th><i class="icon-calendar"></i> Datum završetka</th>
+      <th><i class="icon-home"></i> Sala</th>
+      <th><i class="icon-tags"></i> Broj članova</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  {% for pr in Projekti %}
+  <tr>
+    <td style="text-align:center;">{{ pr.id }}</td>
+    <td><a href="/projekti/prikaz/{{ pr.id }}/">{{ pr.naziv }}</a></td>
+    <td><a href="/clanovi/prikaz/{{ pr.koordinator.id }}/">{{ pr.koordinator.ime }} {{ pr.koordinator.prezime }}</a></td>
+    <td>{{ pr.datum_pocetak|date:"d.m.o." }}</td>
+    <td>{{ pr.datum_kraj|date:"d.m.o." }}</td>
+    <td>{{ pr.sala }}</td>
+    <td class="broj_clanova"><p>{{ pr.ukljuceni_clanovi.all|length }}</p>
+      {% if pr.ukljuceni_clanovi.all|length %}
+      <li class="dropdown btn btn-primary razmaklijevo"><i class="icon-user icon-white"></i> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#fff;">Uključeni članovi <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          {% for clan in pr.ukljuceni_clanovi.all %}
+          <li>
+            <p class="listasize">{{ clan.ime }} {{ clan.prezime }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %} </td>
+  </tr>
+  {% endfor %}
+    </tbody>
+  
+</table>
+{% endblock %} 

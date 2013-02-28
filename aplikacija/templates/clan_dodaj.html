@@ -2,19 +2,13 @@
 
 {% block title %}Dodaj člana{% endblock %}
 
-{% block nav_home %}{% endblock %}
-{% block nav_clan_dodaj %}current{% endblock %}
+{% block nav_clan %}active{% endblock %}
 
 
-{% block content_title %}Dodaj člana{% endblock %}
+{% block content_title %}Novi član{% endblock %}
 
 {% block content %} 
 
-<!--{% for cl in ukupno %}
-    		{{ cl.ime }} {{ cl.prezime }}<br/>
-    {% endfor %}
-    
-     {{ ukupno|length }}--> 
 
 {% if errors %}
 <ul>
@@ -27,22 +21,11 @@
 
 	
 	{% if form.errors %}
-<p style="color: red;"> <b> Ispravite greške navedene ispod.</b> </p>
+<p style="color: red;"> <b> Ispravite greške navedene ispod!</b> </p>
 <br/>
 {% endif %}
 <form action="." method="post">
-  {% csrf_token %} 
-  <!-- <label style="	display: block;
-	text-align: right;
-    font-weight:bold;
-    margin: 8px 0 0 12px;
-">Izaberi koordinatora:</label>
-  <select name="koordinator" id="koordinator" class="forma" style="width:258px;">
-      {% for cl in clanovi %}
-      <option value="{{ cl.id }}">{{ cl.ime }}<p> </p>{{ cl.prezime }}</option>
-      {% endfor %}
-      </select>
-     <label>Proba input polje</label> <input type="probainput" value="proba">-->
+  {% csrf_token %}
   <div id="formaupis">
   <div class="okvir">{{ form.ime_clana.errors }}
     <p class="label">{{ form.ime_clana.label }}:</p>
@@ -56,11 +39,6 @@
     <p class="label">{{ form.email_clana.label }}:</p>
     <p class="polja">{{ form.email_clana }}</p>
   </div>
-  
-  <!--{{ form.as_table }}-->
-  
-  <div style="float:right; margin:5px;">
-    <input type="submit" value="Sačuvaj">
-  </div>
+  <input type="submit" value="Sačuvaj" class="btn btn-large btn-primary">
 </form>
 {% endblock %} 
