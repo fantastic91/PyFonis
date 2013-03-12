@@ -1,0 +1,39 @@
+{% extends "baza.html" %}
+
+{% block title %}Izmena podataka o članu{% endblock %}
+
+{% block nav_clan %}active{% endblock %}
+
+ 
+{% block content_title %}{{ form.first_name.value }} {{ form.last_name.value }}{% endblock %}
+
+
+{% block content %}
+<h3>Da li ste sigurni da želite da izvršite deaktivaciju profila?</h3>
+{{ form.errors }}
+<form action="" method="post">
+  {% csrf_token %}
+  <p class="polja">
+    <input type="hidden" value="{{ form.last_login.value|date:"Y-m-d H:i:s" }}" name="last_login" id="last_login">
+  </p>
+  <p class="polja">
+    <input type="hidden" value="{{ form.date_joined.value|date:"Y-m-d H:i:s" }}" name="date_joined" id="date_joined">
+  </p>
+  <p class="polja">
+    <input type="hidden" value="False" name="is_active" id="is_active">
+  </p>
+  <p class="polja">
+    <input type="hidden" value="{{ form.first_name.value }}" name="first_name" id="first_name">
+  </p>
+  <p class="polja">
+    <input type="hidden" value="{{ form.last_name.value }}" name="last_name" id="last_name">
+  </p>
+  <p class="polja">
+    <input type="hidden" value="{{ form.username.value }}" name="username" id="username">
+  </p>
+  <p class="polja">
+    <input type="hidden" value="{{ form.email.value }}" name="email" id="email">
+  </p>
+  <input type="submit" value="Da" class="btn btn-large btn-danger margin-right">
+</form>
+{% endblock %} 

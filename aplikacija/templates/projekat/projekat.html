@@ -6,11 +6,14 @@
 
 {% block content_title %}{{ podaci.naziv }}
 <p class="opis-projekta-header" style="padding-top:10px;">{{ podaci.opis }}</p>
-<p>
+<p> {% if user.is_authenticated %}{% if perms.aplikacija.add_projekti %}
 <form>
   <button class="btn btn-info btn-large margin-right" formaction="edit/"><i class="icon-pencil icon-white"></i> Izmeni projekat</button>
   <button class="btn btn-danger btn-large" formaction="delete/"><i class="icon-trash icon-white"></i> Obriši projekat</button>
 </form>
+{% else %}
+  
+{% endif %}{% endif %}
 </p>
 <div class="head-inline-projekat">
   <p class="text-right">Trajanje projekta: <span class="brojpr"><b>{{ broj_dana.days }}</b></span> dan{{ broj_dana.days|pluralize:",a" }}</p>
@@ -34,7 +37,7 @@
 
       {% endblock %}
 
-{% block content %}{% if podaci %}
+{% block content %}
 <table class="table table-striped">
   <thead>
     <tr>
@@ -51,7 +54,7 @@
     <tr>
       <td style="text-align:center;">{{ podaci.id }}</td>
       <td>{{ podaci.naziv }}</td>
-      <td style="text-align:center;"><a href="/clanovi/prikaz/{{ podaci.koordinator.id }}">{{ podaci.koordinator.ime }} {{ podaci.koordinator.prezime }}</a></td>
+      <td style="text-align:center;"><a href="/clanovi/prikaz/{{ podaci.koordinator.id }}">{{ podaci.koordinator.first_name }} {{ podaci.koordinator.last_name }}</a></td>
       <td style="text-align:center;">{{ podaci.datum_pocetak|date:"d.m.o." }}</td>
       <td style="text-align:center;">{{ podaci.datum_kraj|date:"d.m.o." }}</td>
       <td style="text-align:center;">{{ podaci.sala }}</td>
@@ -61,21 +64,44 @@
 </table>
 <span class="brojpr"><b>OPIS: </b></span> {{ podaci.opis }} <br />
 <br />
+{% if sastanci %}
+<h2>Sastanci</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><i class="icon-file"></i> Naziv sastanka</th>
+      <th style="text-align:center;"><i class="icon-calendar"></i> Datum</th>
+      <th style="text-align:center;"><i class="icon-time"></i> Vreme</th>
+      <th style="text-align:center;"><i class="icon-tags"></i> Prisutnih članova</th>
+    </tr>
+  </thead>
+  {% endif %}
+  <tbody>
+  {% for sastanak in sastanci %}
+  <tr>
+    <td><a href="/sastanak/{{ sastanak.id }}">{{ sastanak.naziv }}</a></td>
+    <td style="text-align:center;">{{ sastanak.datum_odrzavanja|date:"d.m.o." }}</td>
+    <td style="text-align:center;">{{ sastanak.vrijeme_odrzavanja|time:"H:i" }}</td>
+    <td style="text-align:center;">{{ sastanak.prisutni_clanovi.all|length }}</td>
+  </tr>
+  {% endfor %}
+    </tbody>
+  
+</table>
 {% if podaci.ukljuceni_clanovi.all|length %}
 <h2>Uključeni članovi</h2>
 {% endif %}
-<p>
-<table class="table table-striped">
-  <tbody>
-  
-  {% for clan in podaci.ukljuceni_clanovi.all %}
-  
-    <td><i class="icon-user"></i> <a href="/clanovi/prikaz/{{ clan.id }}/">{{ clan.ime }} {{ clan.prezime }}</a></td>
+<div id="clanovi_lista">
+  <ul>
+    {% for sl in clan.profil_korisnik.all %} <img src="/{{ sl.slika }}" class="kruzno slika_thumb" /> {% endfor %}
+    
+    
+    {% for clan in podaci.ukljuceni_clanovi.all %}
+    <li> {% if not clan.profil_korisnik.all %}<img src="/aplikacija/static/uploads/bez_slike.jpg" />{% endif %}
+      {% for sl in clan.profil_korisnik.all %} <img src="/{{ sl.slika }}" /> {% endfor %} <a href="/clanovi/prikaz/{{ clan.id }}/">{{ clan.first_name }}</a></li>
     {% endfor %}
-      </tbody>
-</table>
-</p>
-{% endif %}
+  </ul>
+</div>
 {% endblock %}
 
 

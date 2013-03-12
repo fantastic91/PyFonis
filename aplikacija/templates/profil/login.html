@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Login na PyFonis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" media="screen">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" media="screen">
+    <link rel="icon" type="image/png"  href="{{ STATIC_URL }}css/icon.png" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+    <style type="text/css">
+/* Override some defaults */
+
+html, body {
+	background-color: #eee;
+}
+body {
+	padding-top: 40px;
+}
+.container {
+	width: 300px;
+}
+/* The white background content wrapper */
+.container > .content {
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -20px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+.login-form {
+	margin-left: 65px;
+}
+legend {
+	margin-right: -50px;
+	font-weight: bold;
+	color: #404040;
+}
+</style>
+    </head>
+    <body>
+<div class="container">
+      <div class="content">
+    <div class="row">
+          <div class="login-form">
+        <h2>Login</h2>
+        {% if form.errors %}
+        <p class="error">Greška! Niste upisali ispravno korisničko ime ili lozinku.</p>
+        {% endif %}
+        <form action="" method="post">
+              {% csrf_token %}
+              <fieldset>
+            <div class="clearfix">
+                  <input type="text" name="username" value="" placeholder="Korisničko ime" id="username" name="username">
+                </div>
+            <div class="clearfix">
+                  <input type="password" name="password" value="" placeholder="Lozinka" id="password" name="password">
+                </div>
+            <button class="btn btn-primary btn-large" type="submit">Login</button>
+            <input type="hidden" name="next" value="/" />
+          </fieldset>
+            </form>
+      </div>
+        </div>
+  </div>
+    </div>
+<!-- /container -->
+</body>
+</html>

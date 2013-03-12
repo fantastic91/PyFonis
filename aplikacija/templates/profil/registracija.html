@@ -1,0 +1,52 @@
+{% extends "baza.html" %}
+
+{% block title %}Registracija{% endblock %}
+
+{% block content_title %}Registracija{% endblock %}
+
+{% block content %}
+<p>
+<h3>Kreiranje novog naloga</h3>
+{% if errors %}
+<ul style="list-style-type:none;">
+  {% for error in errors %}
+  <li>{{ error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if form.errors %}
+<p style="color: red;"> <b> Ispravite greške navedene ispod!</b> </p>
+<br/>
+{% endif %}
+<form action="" method="post">
+  {% csrf_token %}
+  <div id="formaupis">
+  <div class="okvir">{{ form.username.errors }}
+    <p class="label">Korisničko ime:</p>
+    <p class="polja">{{ form.username }}</p>
+  </div>
+  <div class="okvir" style="overflow:hidden; height:auto;"> {{ form.first_name.errors }}
+    <p class="label">{{ form.first_name.label }}:</p>
+    <p class="polja">{{ form.first_name }}</p>
+  </div>
+  <div class="okvir">{{ form.last_name.errors }}
+    <p class="label">{{ form.last_name.label }}:</p>
+    <p class="polja">{{ form.last_name }}</p>
+  </div>
+  <div class="okvir">{{ form.email.errors }}
+    <p class="label">{{ form.email.label }}:</p>
+    <p class="polja">{{ form.email }}</p>
+  </div>
+  <div class="okvir">{{ form.password1.errors }}
+    <p class="label">Lozinka:</p>
+    <p class="polja">{{ form.password1 }}</p>
+  </div>
+  <div class="okvir">{{ form.password2.errors }}
+    <p class="label">Lozinka (unesite ponovo):</p>
+    <p class="polja">{{ form.password2 }}</p>
+  </div>
+  <input type="submit" value="Kreiraj nalog" class="btn btn-primary btn-large">
+</form>
+</p>
+{% endblock %} 

@@ -24,33 +24,47 @@
           <li class="dropdown current {% block nav_lista %}{% endblock %}"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projekti <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="/projekti/">Lista projekata</a></li>
+              {% if user.is_authenticated %}
               <li><a href="/projekti/novi/">Dodaj projekat</a></li>
+              <li><a href="/sastanak/novi/">Dodaj sastanak</a></li>
+              {% endif %}
             </ul>
           </li>
-          <li class="dropdown {% block nav_clan %}{% endblock %}"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Članovi <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/clanovi/">Lista članova</a></li>
-              <li><a href="/clanovi/novi/">Dodaj člana</a></li>
-            </ul>
-          </li>
+          <li class="{% block nav_clan %}{% endblock %}"><a href="/clanovi">Članovi</a></li>
         </ul>
         <div style="margin-left:auto; margin-right:auto; width:150px;">
-          <form class="navbar-search" action="/pretraga/">
-            <input type="text" class="search-query span2" placeholder="Pretraga projekata..." name="q">
+          <form class="form-search navbar-search" action="/pretraga/">
+            <div class="input-append">
+              <input type="text" class="span2 search-query" name="q" placeholder="Pretraga projekata...">
+              <button type="submit" class="btn">Traži</button>
+            </div>
           </form>
         </div>
         <ul class="nav pull-right">
-          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Miloš Bovan <b class="caret"></b></a>
+          {% if user.is_authenticated %}<li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+         {% for user in user.profil_korisnik.all %}<img src="/{{ user.slika }}" class="slika_top" />{% endfor %}
+{% if not user.profil_korisnik.all %}<img src="/aplikacija/static/uploads/bez_slike.jpg" class="slika_top" />{% endif %}
+
+         {{ user.first_name }} {{ user.last_name }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="/"><i class="icon-user"></i> Log Out</a></li>
+              <li><a href="/profil/"><i class="icon-user"></i> Profil</a></li>
+              <li><a href="/profil/fotografija/dodaj/"><i class="icon-camera"></i> Dodaj fotografiju</a></li>
+              <li><a href="/profil/fotografija/"><i class="icon-camera"></i> Promena fotografije</a></li>
+              <li><a href="/profil/lozinka/promena/"><i class="icon-asterisk"></i> Promena lozinke</a></li>
+              <li><a href="/profil/logout/"><i class="icon-lock"></i> Log Out</a></li>
             </ul>
           </li>
+          {% else %} <a href="/profil/registracija">
+          <button class="btn btn-primary">Registracija</button>
+          </a> <a href="/profil/login">
+          <button class="btn btn-primary">Ulogujte se</button>
+          </a> {% endif %}
         </ul>
       </div>
     </div>
   </div>
 </div>
-<header class="headbig max-width">
+<header class="headbig max-width" style="height:{% block height_header %}{% endblock %};">
   <div class="naslov">
     <h1>{% block content_title %}{% endblock %}</h1>
   </div>

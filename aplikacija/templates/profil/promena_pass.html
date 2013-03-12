@@ -1,0 +1,26 @@
+{% extends "baza.html" %}
+
+{% block title %}Promena lozinke{% endblock %}
+
+{% block nav_clan %}active{% endblock %}
+
+ 
+{% block content_title %}Promena lozinke{% endblock %}
+
+
+{% block content %}
+
+
+
+
+	
+	{% if form.errors %}
+<p style="color: red;"> <b> Ispravite greške navedene ispod!</b> </p>
+{% endif %}
+<form action="" method="post">
+  {% csrf_token %}
+  <div id="formaupis" class="forma"> {{ form }} </div>
+  <input type="submit" value="Sačuvaj promene" class="btn btn-large btn-primary margin-right">
+  <input type="reset" value="Reset" class="btn btn-large btn-danger">
+</form>
+{% endblock %} 

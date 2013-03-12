@@ -1,0 +1,53 @@
+{% extends "baza.html" %}
+
+{% block title %}Prikaz sastanka{% endblock %}
+
+{% block nav_lista %}{% endblock %}
+
+{% block content_title %}{{ podaci.naziv }}
+<p class="opis-projekta-header" style="padding-top:10px;">{{ podaci.projekat.naziv }}</p>
+<p> {% if user.is_authenticated %}
+<form>
+  <button class="btn btn-info btn-large margin-right" formaction="edit/"><i class="icon-pencil icon-white"></i> Izmeni sastanak</button>
+  <button class="btn btn-danger btn-large" formaction="delete/"><i class="icon-trash icon-white"></i> Obriši sastanak</button>
+</form>
+{% else %}
+  
+{% endif %}
+</p>
+<div class="head-inline-projekat">
+  <p class="text-right">Prisutnih članova: <span class="brojpr"><b>{{ podaci.prisutni_clanovi.all|length }}</b></span></p>
+</div>
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align:center;"><i class="icon-chevron-down"></i> ID</th>
+      <th><i class="icon-file"></i> Projekat</th>
+      <th><i class="icon-file"></i> Naziv sastanka</th>
+      <th style="text-align:center;"><i class="icon-calendar"></i> Datum</th>
+      <th style="text-align:center;"><i class="icon-time"></i> Vreme</th>
+      <th style="text-align:center;"><i class="icon-tags"></i> Prisutni članovi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center;">{{ podaci.id }}</td>
+      <td><a href="/projekti/prikaz/{{ podaci.projekat.id }}">{{ podaci.projekat.naziv }}</a></td>
+      <td>{{ podaci.naziv }}</td>
+      <td style="text-align:center;">{{ podaci.datum_odrzavanja|date:"d.m.o." }}</td>
+      <td style="text-align:center;">{{ podaci.vrijeme_odrzavanja|time:"H:i" }}</td>
+      <td style="text-align:center;"><ul class="unstyled" style="text-align:center;">
+          {% for clan in podaci.prisutni_clanovi.all %}
+          <li><a href="/clanovi/prikaz/{{ clan.id }}/">{{ clan.first_name }} {{ clan.last_name }}</a></li>
+          {% endfor %}
+        </ul></td>
+    </tr>
+  </tbody>
+</table>
+<span class="brojpr"><b>OPIS: </b></span> {{ podaci.opis }} 
+
+
+{% endblock %} 

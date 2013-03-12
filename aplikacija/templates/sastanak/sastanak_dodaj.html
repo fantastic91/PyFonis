@@ -1,0 +1,40 @@
+{% extends "baza.html" %}
+
+{% block title %}Novi sastanak{% endblock %}
+
+{% block nav_lista %}active{% endblock %}
+
+{% block content_title %}Novi sastanak{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+  {% csrf_token %}
+  <div id="formaupis">
+    <div class="okvir">{{ form.projekat.errors }}
+      <p class="label">{{ form.projekat.label }}:</p>
+      <p class="polja">{{ form.projekat }}</p>
+    </div>
+    <div class="okvir">{{ form.naziv.errors }}
+      <p class="label">{{ form.naziv.label }}:</p>
+      <p class="polja">{{ form.naziv }}</p>
+    </div>
+    <div class="okvir">{{ form.datum_odrzavanja.errors }}
+      <p class="label">{{ form.datum_odrzavanja.label }}:</p>
+      <p class="polja">{{ form.datum_odrzavanja }}</p>
+    </div>
+    <div class="okvir">{{ form.vrijeme_odrzavanja.errors }}
+      <p class="label">{{ form.vrijeme_odrzavanja.label }}:</p>
+      <p class="polja">{{ form.vrijeme_odrzavanja }}</p>
+    </div>
+    <div class="okvir">{{ form.opis.errors }}
+      <p class="label">{{ form.opis.label }}:</p>
+      <p class="polja">{{ form.opis }}</p>
+    </div>
+    <div class="okvir">{{ form.prisutni_clanovi.errors }}
+      <p class="label">{{ form.prisutni_clanovi.label }}:</p>
+      <p class="polja">{{ form.prisutni_clanovi }}</p>
+    </div>
+  </div>
+  <input type="submit" value="Sačuvaj" class="btn btn-large btn-primary">
+</form>
+{% endblock %}

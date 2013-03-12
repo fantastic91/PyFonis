@@ -1,0 +1,46 @@
+{% extends "baza.html" %}
+
+{% block title %}Dodaj fotografiju{% endblock %}
+
+{% block nav_clan %}active{% endblock %}
+
+
+{% block content_title %}Nova fotografija{% endblock %}
+
+{% block content %} 
+
+
+{% if errors %}
+<ul>
+  {% for error in errors %}
+  <li>{{ error }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+
+	
+	{% if form.errors %}
+<p style="color: red;"> <b> Ispravite greške navedene ispod!</b> </p>
+<br/>
+{% endif %}
+
+ 
+ {% if greska %}
+<p style="color: red;"> <b>Greška! Ne možete da promenite fotografiju za profil koji nije vaš!</b> </p>
+{% endif %}
+<p style="color: red;"> <b>{% if greska2 %}Greška! Već postoji fotografija za izabranog člana! Za promenu <a href="/profil/fotografija/">kliknite ovde.</a>{% endif %}</b> </p>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div id="formaupis">
+  <div class="okvir">{{ form.korisnik.errors }}
+    <p class="label">{{ form.korisnik.label }}:</p>
+    <p class="polja">{{ form.korisnik }}</p>
+  </div>
+  <div class="okvir" style="overflow:hidden; height:auto;"> {{ form.slika.errors }}
+    <p class="label">{{ form.slika.label }}:</p>
+    <p class="polja">{{ form.slika }}</p>
+  </div>
+  <input type="submit" value="Sačuvaj" class="btn btn-large btn-primary">
+</form>
+{% endblock %} 

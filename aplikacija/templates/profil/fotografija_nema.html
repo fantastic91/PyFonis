@@ -1,0 +1,17 @@
+{% extends "baza.html" %}
+
+{% block title %}Niste dodali fotografiju!{% endblock %}
+
+{% block nav_clan %}active{% endblock %}
+
+
+{% block content_title %}Greška!{% endblock %}
+
+{% block content %}
+<p>
+<h3>Da biste promenili fotografiju morate je prethodno dodati klikom na dugme ispod:</h3>
+<a href="/profil/fotografija/dodaj/">
+<button class="btn btn-large btn-primary">Dodaj fotografiju</button>
+</a>
+</p>
+{% endblock %} 

@@ -4,15 +4,16 @@
 
 {% block nav_clan %}active{% endblock %}
 
-{% block content_title %}{{ podaci.ime }} {{ podaci.prezime }}
-<p></p>
-<form>
-  <p>
-    <button class="btn btn-info btn-large margin-right" formaction="edit/"><i class="icon-pencil icon-white"></i> Izmeni podatke</button>
-    <button class="btn btn-danger btn-large" formaction="delete/"><i class="icon-trash icon-white"></i> Obriši člana</button>
-</form>
-</p>
-<div class="head-inline-projekat"> {% if podaci.projekti_koordinator.all|length %}
+{% block height_header %}160px{% endblock %}
+
+{% block content_title %} <img src="/{% if slike %}{{ slike.slika }}{% endif %}{% if not slike %}aplikacija/static/uploads/bez_slike.jpg{% endif %}" class="rounded slika" /> {{ podaci.first_name }} {{ podaci.last_name }}
+<div class="buttoni"> {% if user.is_authenticated %}
+  <form>
+    <button class="btn btn-info margin-right btn-large" style="display:inline-block;" formaction="edit/"><i class="icon-pencil icon-white"></i> Izmeni podatke</button>
+    <button class="btn btn-danger btn-large" style="display:inline-block;" formaction="delete/"><i class="icon-trash icon-white"></i> Obriši člana</button>
+  </form>
+  {% else %}{% endif %}</div>
+<div class="head-inline-clan"> {% if podaci.projekti_koordinator.all|length %}
   <p class="text-right">Koordinator na <span class="brojpr"><b>{{ podaci.projekti_koordinator.all|length }}</b></span> projekt{{ podaci.projekti_koordinator.all|pluralize:"u,a" }}.</p>
   {% endif %}
   {% if podaci.projekti_clanovi.all|length %}
@@ -26,16 +27,20 @@
   <thead>
     <tr>
       <th style="text-align:center;"><i class="icon-chevron-down"></i> ID</th>
+      <th style="text-align:center;"><i class="icon-star"></i> Korisničko ime</th>
       <th><i class="icon-user"></i> Ime i prezime</th>
       <th style="text-align:center;"><i class="icon-envelope"></i> E-mail</th>
       <th style="text-align:center;"><i class="icon-tag"></i> Koordinator</th>
       <th style="text-align:center;"><i class="icon-tags"></i> Član</th>
+      <th style="text-align:center;"><i class="icon-calendar"></i> Datum registracije</th>
+      <th style="text-align:center;"><i class="icon-calendar"></i> Poslednji pristup</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td style="text-align:center;">{{ podaci.id }}</td>
-      <td>{{ podaci.ime }} {{ podaci.prezime }}</td>
+      <td style="text-align:center;">{{ podaci.username }}</td>
+      <td>{{ podaci.first_name }} {{ podaci.last_name }}</td>
       <td style="text-align:center;">{{ podaci.email }}</td>
       <td><ul class="unstyled" style="text-align:center;">
           {% for proj in podaci.projekti_koordinator.all %}
@@ -51,20 +56,9 @@
           </center>
           {% endif %}
         </ul></td>
+      <td style="text-align:center;">{{ podaci.date_joined|date:"d.m.Y." }}</td>
+      <td style="text-align:center;">{{ podaci.last_login|date:"d.m.Y. H:i:s" }}</td>
     </tr>
   </tbody>
 </table>
-{% endblock %}
-{% block content_2 %}{% if podaci.ukljuceni_clanovi.all|length %}
-<div class="kolona" style="padding:10px">
-  <h3>Uključeni članovi</h3>
-  <div id="ukl_clanovi">
-    <ul>
-      {% for clan in podaci.ukljuceni_clanovi.all %}
-      <li>{{ clan.ime }} {{ clan.prezime }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-{% endif %}
 {% endblock %}

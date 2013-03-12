@@ -1,0 +1,18 @@
+{% extends "baza.html" %}
+
+{% block title %}Izmena podataka o sastanku{% endblock %}
+
+{% block nav_lista %}active{% endblock %}
+
+{% block content_title %}{{ podaci.naziv }}{% endblock %}
+
+{% block content %}{% if podaci %}
+<form action="." method="post">
+{% csrf_token %}
+  {{ form.as_table }} <br/>
+  <br/>
+  <input type="submit" value="Sačuvaj promene" class="btn btn-large btn-primary">
+{% endif %}{% if not podaci %}
+<h3>Traženi sastanak nije pronađen!</h3>
+{% endif %}
+{% endblock %} 

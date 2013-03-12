@@ -7,6 +7,9 @@ Funkcionalnosti:
 - Lista projekata
 - Lista clanova
 - Pretraga
-- Add projekata/clanova
-- Edit projekata/clanova
-- Delete projekata/clanova
+- Add projekata/clanova/sastanaka
+- Edit projekata/clanova/sastanaka
+- Delete projekata/clanova/sastanaka
+- Fotografije
+- Profili
+- Registracija/Login

@@ -1,0 +1,54 @@
+{% extends "baza.html" %}
+
+{% block title %}Izmena podataka o članu{% endblock %}
+
+{% block nav_clan %}active{% endblock %}
+
+ 
+{% block content_title %}{{ form.first_name.value }} {{ form.last_name.value }}{% endblock %}
+
+{% block content %}
+<h3>Izmena podataka</h3>
+{{ form.errors }}
+{% if podaci %}
+<form action="." method="post">
+  {% csrf_token %}
+  <div id="formaupis">
+  <div class="okvir">{{ form.username.errors }}
+    <p class="label">Korisničko ime:</p>
+    <p class="polja">{{ form.username }}</p>
+  </div>
+  <div class="okvir" style="overflow:hidden; height:auto;"> {{ form.first_name.errors }}
+    <p class="label">Ime:</p>
+    <p class="polja">{{ form.first_name }}</p>
+  </div>
+  <div class="okvir">{{ form.last_name.errors }}
+    <p class="label">Prezime:</p>
+    <p class="polja">{{ form.last_name }}</p>
+  </div>
+  <div class="okvir">{{ form.email.errors }}
+    <p class="label">E-mail:</p>
+    <p class="polja">{{ form.email }}</p>
+    <p class="polja">
+      <input type="hidden" value="{{ form.last_login.value|date:"Y-m-d H:i:s" }}" name="last_login" id="last_login">
+    </p>
+    <p class="polja">
+      <input type="hidden" value="{{ form.date_joined.value|date:"Y-m-d H:i:s" }}" name="date_joined" id="date_joined">
+    </p>
+    <p class="polja">
+      <input type="hidden" value="True" name="is_active" id="is_active">
+    </p>
+    <p class="polja">
+      <input type="hidden" value="{{ form.is_superuser.value }}" name="is_superuser" id="is_superuser">
+    </p>
+    <p class="polja">
+      <input type="hidden" value="{{ form.is_staff.value }}" name="is_staff" id="is_staff">
+    </p>
+  </div>
+  <input type="submit" value="Sačuvaj promene" class="btn btn-large btn-primary margin-right">
+  <input type="reset" value="Vrati početnu vrednost" class="btn btn-large btn-danger">
+</form>
+{% endif %}{% if not podaci %}
+<h3>Traženi član nije pronađen!</h3>
+{% endif %}
+{% endblock %} 
