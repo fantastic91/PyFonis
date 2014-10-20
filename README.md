@@ -11,3 +11,5 @@ Features:
 - Deleting projects, users, meetings
 - User profiles with pictures
 - Registration, Login and Admin panel
+
+Live Demo: http://fonis.alwaysdata.net/
