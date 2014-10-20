@@ -1,15 +1,13 @@
 PyFonis
 =======
 
-Python Fonis projekat - privremeni timovi, februar 2013
+Python Fonis project - february 2013
 
-Funkcionalnosti:
-- Lista projekata
-- Lista clanova
-- Pretraga
-- Add projekata/clanova/sastanaka
-- Edit projekata/clanova/sastanaka
-- Delete projekata/clanova/sastanaka
-- Fotografije
-- Profili
-- Registracija/Login
+Features:
+- Project list, Users list
+- Searching through projects, users, meetings
+- Adding projects, users, meetings
+- Editing projects, users, meetings
+- Deleting projects, users, meetings
+- User profiles with pictures
+- Registration, Login and Admin panel
